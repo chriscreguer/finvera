@@ -50,5 +50,8 @@ module.exports = {
     'vue/no-static-inline-styles': 'warn',
     'semi': 'off',
     '@typescript-eslint/semi': 'warn',
+    'vue/multi-word-component-names': ['error', {
+        ignores: ['index']
+      }]
 }
 }
