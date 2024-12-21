@@ -1,7 +1,7 @@
 <template>
     <!-- MenuItem Component with internal data -->
     <div class="relative group">
-        <button class="hover:text-gray-300">Topics</button>
+        <div class="font-sans font-semibold">Topics</div>
         <div class="absolute top-full mt-2 w-64 bg-white shadow-lg p-4 grid grid-cols-2 gap-4 opacity-0 group-hover:opacity-100 transition-opacity">
             <div 
                 v-for="item in menuItems" 

@@ -7,5 +7,5 @@ export default defineNuxtConfig({
             autoprefixer: {},
         },
     },
-    css: ['~/assets/styles/main.scss'],
+    css: ['~/assets/styles/main.scss', '~/assets/styles/variables.scss'],
 });
