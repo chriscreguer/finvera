@@ -8,28 +8,32 @@
                     <!-- Left Column -->
                     <div class="left-column relative">
                         <div class="decorative-line"></div>
-                        <img src="../assets/images/article-1.png">
-                        <div class="bg-black/40 p-6 pt-4 text-white">
-                            <ArticleTags :data="leftColumnArticle.tags" class="mb-2" />
-                            <h1 class="leading-10 font-bold mb-4">{{ leftColumnArticle.title }}</h1>
-                            <p class="text-xl leading-6 mb-2 text-white/70">{{ leftColumnArticle.description }}</p>
-                            <div class="flex gap-1 font-serif">
-                                <span class="text-sm text-white/90 font-semibold">
-                                    {{ leftColumnArticle.author }}
-                                </span>
-                                <span class="text-sm text-white/70">
-                                    |
-                                </span>
-                                <span class="text-sm text-white/70">
-                                    {{ leftColumnArticle.time }}
-                                </span>
-                            </div>
+                        <div class="article-hero-card">
+                            <a href="">
+                                <img src="../assets/images/article-1.png">
+                                <div v-if="leftColumnArticle" class="p-6 pt-4">
+                                    <ArticleTags :data="leftColumnArticle.tags" class="mb-2" />
+                                    <h1 class="leading-9.5 font-bold mb-4 text-white">{{ leftColumnArticle.title }}</h1>
+                                    <p class="text-xl leading-6 mb-2 text-white/70">{{ leftColumnArticle.description }}</p>
+                                    <div class="flex gap-1 font-serif">
+                                        <span class="text-sm text-white/90 font-semibold">
+                                            {{ leftColumnArticle.author }}
+                                        </span>
+                                        <span class="text-sm text-white/70">|</span>
+                                        <span class="text-sm text-white/70">{{ leftColumnArticle.time }}</span>
+                                    </div>
+                                </div>
+                            </a>
                         </div>
                     </div>
   
                     <!-- Middle Column -->
-                    <div class="middle-column space-y-6">
-                        <ArticleCardSmall v-for="article in middleColumnArticles" :key="article.id" :article="article" />
+                    <div class="middle-column space-y-6 flex flex-col">
+                        <ArticleCardSmall 
+                            v-for="article in middleColumnArticles" 
+                            :key="article.id" 
+                            :article="article" 
+                        />
                     </div>
   
                     <!-- Right Column -->
@@ -38,21 +42,19 @@
                         <div 
                             v-for="(article, index) in rightColumnArticles" 
                             :key="article.id" 
-                            class="rounded"
-                            :class="['text-white text-sm pb-4 flex flex-col gap-1', { 'border-b border-white/20': index !== rightColumnArticles.length - 1 }]">
-                            <ArticleTags :data="article.tags" class="mb-1" />
-                            <h3 class="font-bold">{{ article.title }}</h3>
-                            <div class="flex gap-1 font-serif pt-1">
-                                <span class="text-sm text-white/90 font-semibold">
-                                    {{ article.author }}
-                                </span>
-                                <span class="text-sm text-white/70">
-                                    |
-                                </span>
-                                <span class="text-sm text-white/70">
-                                    {{ article.time }}
-                                </span>
-                            </div>
+                            class="rounded article-hero text-white text-sm pb-4 flex flex-col gap-1"
+                            :class="[{ 'border-b border-white/20': index !== rightColumnArticles.length - 1 }]">
+                            <a href="">
+                                <ArticleTags :data="article.tags" class="mb-1" />
+                                <h3 class="font-bold text-white">{{ article.title }}</h3>
+                                <div class="flex gap-1 font-serif pt-1">
+                                    <span class="text-sm text-white/90 font-semibold">
+                                        {{ article.author }}
+                                    </span>
+                                    <span class="text-sm text-white/70">|</span>
+                                    <span class="text-sm text-white/70">{{ article.time }}</span>
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -60,13 +62,13 @@
         </div>
     </div>
 </template>
-
+  
 <script lang="ts">
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 import SiteHeader from '@/components/SiteHeader.vue';
 import ArticleCardSmall from '@/components/ArticleCardSmall.vue';
 import ArticleTags from '@/components/ArticleTags.vue';
-
+  
 export default {
     name: 'HomePage',
     components: {
@@ -75,107 +77,188 @@ export default {
         ArticleTags,
     },
     setup() {
-        const scrolled = ref(false);
-        const middleColumnArticles = ref([]);
-        const rightColumnArticles = ref([]);
-        const leftColumnArticle = ref({
-            title: "2 new forecasts see the S&P 500's bull market roaring in 2025x",
-            description: 'Investors are ramping up bets that Trump 2.0 will loosen the federal government’s grip over mortgage giants Freddie Mac (FMCC) and Fannie Mae (FNMA), ending one of the oldest fights on Wall Street.',
-            author: 'Cameron Bates',
-            time: '12 minutes ago',
-            tags: ['Forecast', 'S&P 500']
-        });
-    
+        const leftColumnArticle = ref<{
+            id: number;
+            title: string;
+            description?: string;
+            author: string;
+            time: string;
+            tags: { text?: string; trend?: number; }[];
+        } | null>(null);
+        const middleColumnArticles = ref<Array<{ id: number, title: string, description?: string, author: string, time: string, tags: Array<{ text?: string, trend?: number}> }>>([]);
+        const rightColumnArticles = ref<Array<{ id: number, title: string, description?: string, author: string, time: string, tags: Array<{ text?: string, trend?: number}> }>>([]);
+  
         const fetchArticles = () => {
             return new Promise((resolve) => {
                 setTimeout(() => {
-                    resolve({
-                        middleColumnArticles: [
-                            { id: 2, title: 'FuelCell Collaborates With KHNP To Tackle South Korea\'s Hydrogen Needs', author: 'John Doe', time: '25 mins ago', tags: ['Hydrogen', 'Energy'] },
-                            { id: 3, title: 'Dow jumps, eyes record after Trump picks Bessent for Treasury', author: 'Jane Smith', time: '2 hours ago', tags: ['Stock Market', 'Economy'] },
-                        ],
-                        rightColumnArticles: [
-                            { id: 4, title: 'Meta face trial in FTC case aiming to undo Instagram merge', author: 'Bob Brown', time: '21 mins ago', tags: ['Meta', 'FTC', 'Instagram'] },
-                            { id: 5, title: 'AI Bot Flips Wall Street on Its Head: Turns $1K into $50K in Record 30 Days', author: 'Charlie Davis', time: '1 hour ago', tags: ['AI', 'Wall Street'] },
-                            { id: 6, title: 'Billionaire Tom Steyer Strikes New Jersey Real Estate Deal', author: 'Dana White', time: '2 hours ago', tags: ['Real Estate'] },
-                            { id: 7, title: 'Eurozone Inflation Rises, Testing ECB\'s Rate Strategies', author: 'Dana White', time: '2 hours ago', tags: ['Eurozone'] },
-                        ],
-                    });
+                    resolve([
+                        { 
+                            id: 1, 
+                            title: '2 new forecasts see the S&P 500\'s bull market roaring in 2025', 
+                            description: 'Investors are ramping up bets that Trump 2.0 will loosen the federal government’s grip over mortgage giants Freddie Mac (FMCC) and Fannie Mae (FNMA), ending one of the oldest fights on Wall Street.', 
+                            author: 'John Doe', 
+                            time: '25 mins ago', 
+                            tags: [
+                                { text: 'SP500', trend: +3.2 },
+                                { text: 'Economy' },
+                                { text: 'Finance' },
+                            ],
+                        },
+                        { 
+                            id: 2, 
+                            title: 'FuelCell Collaborates With KHNP To Tackle South Korea\'s Hydrogen Needs', 
+                            author: 'Cameron Bates', 
+                            time: '12 mins ago', 
+                            tags: [
+                                { text: 'FCEL', trend: +1.5 },
+                                { text: 'KHNP', trend: -0.3 },
+                                { text: 'Energy' },
+                            ],
+                        },
+                        { 
+                            id: 3, 
+                            title: 'Dow jumps, eyes record after Trump picks Bessent for Treasury', 
+                            author: 'Jane Smith', 
+                            time: '2 hours ago', 
+                            tags: [
+                                { text: 'DOW', trend: +0.9 },
+                                { text: 'Stocks' },
+                            ],
+                        },
+                        { 
+                            id: 4, 
+                            title: 'Meta faces trial in FTC case aiming to undo Instagram merge', 
+                            author: 'Bob Brown', 
+                            time: '21 mins ago', 
+                            tags: [
+                                { text: 'META', trend: +1.2 },
+                                { text: 'FTC' },
+                                { text: 'Technology' },
+                            ],
+                        },
+                        { 
+                            id: 5, 
+                            title: 'AI Bot Flips Wall Street on Its Head: Turns $1K into $50K in Record 30 Days', 
+                            author: 'Finvera Newsroom', 
+                            time: '21 mins ago', 
+                            tags: [
+                                { text: 'AI' },
+                                { text: 'Technology' },
+                            ],
+                        },
+                        { 
+                            id: 6, 
+                            title: 'Billionaire Tom Steyer Strikes New Jersey Real Estate Deal', 
+                            author: 'Finvera Newsroom', 
+                            time: '21 mins ago', 
+                            tags: [
+                                { text: 'FTC' },
+                                { text: 'Technology' },
+                            ],
+                        },
+                        { 
+                            id: 7, 
+                            title: 'Eurozone Inflation Rises, Testing ECB\'s Rate Strategies', 
+                            author: 'Finvera Newsroom', 
+                            time: '21 mins ago', 
+                            tags: [
+                                { text: 'Interest Rates' },
+                                { text: 'Inflation' },
+                            ],
+                        },
+                    ].map(article => ({
+                        ...article,
+                        tags: article.tags.map(tag => ({
+                            ...tag,
+                            text: tag.text || ''
+                        }))
+                    })));
                 }, 1000); // Simulate a 1-second delay
             });
         };
-    
-        const handleScroll = () => {
-            scrolled.value = window.scrollY > window.innerHeight * 0.7;
+  
+        const distributeArticles = (articles: Array<{ id: number, title: string, description?: string, author: string, time: string, tags: Array<{ text?: string, trend?: number }> }>) => {
+            if (articles.length > 0) leftColumnArticle.value = articles[0];
+            if (articles.length > 1) middleColumnArticles.value = articles.slice(1, 3);
+            if (articles.length > 3) rightColumnArticles.value = articles.slice(3);
         };
-    
+  
         onMounted(async () => {
-            window.addEventListener('scroll', handleScroll);
-            const articles = await fetchArticles();
-            middleColumnArticles.value = articles.middleColumnArticles;
-            rightColumnArticles.value = articles.rightColumnArticles;
+            const articles = await fetchArticles() as Array<{ id: number, title: string, description?: string, author: string, time: string, tags: Array<{ text?: string, trend?: number }> }>;
+            distributeArticles(articles);
         });
-    
-        watch(() => scrolled.value, (newVal) => {
-            if (newVal) {
-                console.log('Scrolled past hero section.');
-            }
-        });
-    
-        return { scrolled, middleColumnArticles, rightColumnArticles, leftColumnArticle };
+  
+        return { leftColumnArticle, middleColumnArticles, rightColumnArticles };
     },
 };
 </script>
-
-<style scoped>
-.custom-grid {
+  
+  <style scoped>
+  .custom-grid {
     display: grid;
     grid-template-columns: 514px 346px 310px;
-    gap: 1.5rem; /* Adjust the gap as needed */
-}
-
-.decorative-line {
+    gap: 1.5rem;
+  }
+  
+  .decorative-line {
     position: absolute;
     left: -48px;
     top: 50%;
-    width: 3px; /* Line width */
-    height: calc(100% + 24px); /* Adjust this height as needed */
+    width: 3px;
+    height: calc(100% + 24px);
     background: repeating-linear-gradient(
-        to bottom,
-        rgba(101, 178, 255, 1),
-        rgba(101, 178, 255, 1) 6px, /* Dash length */
-        transparent 6px, /* Gap start */
-        transparent 13px /* Gap end */
+      to bottom,
+      rgba(101, 178, 255, 1),
+      rgba(101, 178, 255, 1) 6px,
+      transparent 6px,
+      transparent 13px
     );
-}
-
-.decorative-line::before,
-.decorative-line::after {
+  }
+  
+  .decorative-line::before,
+  .decorative-line::after {
     content: '';
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 50%;
-}
-
-.decorative-line::before {
+  }
+  
+  .decorative-line::before {
     background-color: rgba(101, 178, 255, .2);
-}
-
-.decorative-line::after {
-    background-color: rgba(101, 178, 255, .3);
-}
-
-.decorative-line::before {
     width: 32px;
     height: 32px;
     top: -20px;
-}
-
-.decorative-line::after {
+  }
+  
+  .decorative-line::after {
+    background-color: rgba(101, 178, 255, .3);
     width: 14px;
     height: 14px;
     top: -11px;
-}
+  }
 
-</style>
+  .article-hero-card {
+    color: rgba(255,255,255,1);
+    background-color: rgba(0, 0, 0, 0.4);
+    border-radius: 4px;
+    height: min-content;
+  }
+
+  .article-hero-card:hover{
+    background-color: rgba(0, 0, 0, 0.45);
+  }
+
+  .article-hero-card:hover h1{
+    color: #B3D9FF;
+  }
+
+  .article-hero{
+    color: rgba(255,255,255,1);
+  }
+
+  .article-hero:hover h3{
+    color: #B3D9FF;
+  }
+  </style>
+  
