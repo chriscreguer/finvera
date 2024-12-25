@@ -4,7 +4,7 @@
         <a href="">
             <img :src="`/_nuxt/assets/images/article-${article.id}.png`">
             <div class="p-5 pt-3 flex flex-col">
-                <ArticleTags :data="article.tags" class="pb-2"/>
+                <ArticleTags :data="article.tags" variant="dark" class="pb-2"/>
                 <h2 class="leading-6 font-bold pb-3 text-white">
                     {{ article.title }}
                 </h2>

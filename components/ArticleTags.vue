@@ -3,21 +3,16 @@
         <span
             v-for="(tag, index) in data"
             :key="index"
-            class="tag bg-black/15 px-2 py-0.5 rounded-full text-white/80"
+            class="flex gap-1"
+            :class="[
+                'tag px-2 py-0.5 rounded-full',
+                variantClasses
+            ]"
         >
-            <span v-if="tag.trend === undefined">{{ tag.text }}</span>
-            <div
-                v-if="tag.trend !== undefined"
-                class="flex gap-1"
-            >
-                {{ tag.text }}
-                <div
-                    :class="{
-                        'text-green': tag.trend > 0,
-                        'text-red': tag.trend < 0
-                    }">
-                    <span> {{ tag.trend > 0 ? '+' : '' }}{{ tag.trend.toFixed(1) }}</span>
-                
+            <span>{{ tag.text }}</span>
+            <div v-if="tag.trend !== undefined" class="flex gap-1">
+                <div :class="trendClasses(tag.trend)">
+                    <span>{{ tag.trend > 0 ? '+' : '' }}{{ tag.trend.toFixed(1) }}</span>
                     <span class="font-serif">%</span>
                 </div>
             </div>
@@ -41,14 +36,39 @@ export default defineComponent({
             required: true,
             default: () => [],
         },
+        variant: {
+            type: String,
+            required: false,
+            default: 'default',
+        },
+    },
+    computed: {
+        variantClasses() {
+            switch (this.variant) {
+            case 'dark':
+                return 'bg-black/15 text-blue-700';
+            default:
+                return 'bg-primary-100 text-secondary';
+            }
+        },
+    },
+    methods: {
+        trendClasses(trend: number) {
+            switch (this.variant) {
+            case 'dark':
+                return trend > 0 ? 'text-green' : 'text-red';
+            default:
+                return trend > 0 ? 'text-light-green' : 'text-light-red';
+            }
+        },
     },
 });
 </script>
 
 <style scoped>
 .tags {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
 }
 </style>
