@@ -1,23 +1,22 @@
 <template>
-    <div class="tags font-bold font-mono text-xs">
-        <span
+    <ul class="flex ga-2 font-bold uppercase font-sans gap-2 text-xs flex text-black/80 tracking-wider">
+        <div
             v-for="(tag, index) in data"
             :key="index"
-            class="flex gap-1"
-            :class="[
-                'tag px-2 py-0.5 rounded-full',
-                variantClasses
-            ]"
+            class="flex items-center gap-2"
         >
-            <span>{{ tag.text }}</span>
-            <div v-if="tag.trend !== undefined" class="flex gap-1">
-                <div :class="trendClasses(tag.trend)">
-                    <span>{{ tag.trend > 0 ? '+' : '' }}{{ tag.trend.toFixed(1) }}</span>
-                    <span class="font-serif">%</span>
+            <hr v-if="index !== 0" class="vertical-divider">
+            <li class="flex gap-0.5">
+                <span>{{ tag.text }}</span>
+                <div v-if="tag.trend !== undefined" class="flex gap-1">
+                    <div :class="trendClasses(tag.trend)">
+                        <span>{{ tag.trend > 0 ? '+' : '' }}{{ tag.trend.toFixed(1) }}</span>
+                        <span class="font-serif">%</span>
+                    </div>
                 </div>
-            </div>
-        </span>
-    </div>
+            </li>
+        </div>
+    </ul>
 </template>
 
 <script lang="ts">
@@ -42,16 +41,6 @@ export default defineComponent({
             default: 'default',
         },
     },
-    computed: {
-        variantClasses() {
-            switch (this.variant) {
-            case 'dark':
-                return 'bg-black/15 text-blue-700';
-            default:
-                return 'bg-primary-100 text-secondary';
-            }
-        },
-    },
     methods: {
         trendClasses(trend: number) {
             switch (this.variant) {
@@ -66,9 +55,11 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.tags {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+
+.vertical-divider {
+    width: 1px;
+    background-color: rgba(37, 51, 73, .5);
+    height: 10px;
 }
+
 </style>
