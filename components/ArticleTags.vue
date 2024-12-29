@@ -1,12 +1,12 @@
 <template>
-    <ul class="flex ga-2 font-bold uppercase font-sans gap-2 text-xs flex text-black/80 tracking-wider">
+    <ul class="flex font-bold uppercase font-sans gap-2 text-xs flex text-black/80 tracking-wider">
         <div
             v-for="(tag, index) in data"
             :key="index"
             class="flex items-center gap-2"
         >
             <hr v-if="index !== 0" class="vertical-divider">
-            <li class="flex gap-0.5">
+            <li class="flex gap-1">
                 <span>{{ tag.text }}</span>
                 <div v-if="tag.trend !== undefined" class="flex gap-1">
                     <div :class="trendClasses(tag.trend)">

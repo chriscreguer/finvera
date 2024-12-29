@@ -1,57 +1,68 @@
 <template>
-    <header class="sticky top-0 flex flex-col z-20 transition-all text-white bg-dark">
-        <div class="px-10 w-screen flex items-center justify-between h-full">
+    <header class="sticky top-0 flex flex-col z-40 transition-all text-white bg-dark">
+        <div class="pr-9 pl-8 w-screen flex items-center justify-between h-full">
             <!-- Logo -->
-            <a href="/" class="flex items-center h-full">
-                <img src="../assets/images/logo.svg" alt="Logo" class="h-8" />
+            <a href="/" class="flex items-center h-full px-3">
+                <img src="../assets/images/logo.svg" alt="Logo" class="h-7.5" />
             </a>
 
             <!-- Middle Nav Items -->
-            <nav class="flex items-center gap-6">
+            <nav class="flex items-center h-3/4">
                 <a
                     v-for="item in middleNavItems"
                     :key="item"
                     href="#"
-                    class="nav-item">
+                    class="nav-item h-full">
                     {{ item }}
                 </a>
             </nav>
 
             <!-- Right Menu -->
-            <div class="flex items-center gap-8">
+            <div class="flex items-center h-3/4 gap-2">
                 <a href="#" class="nav-item">
                     Newsletter
                 </a>
-                <div class="flex gap-7 items-center">
-                    <div class="relative opacity-80 w-5">
+                <div class="flex h-full items-center">
+                    <div class="flex items-center relative h-full px-4 opacity-80 hover:opacity-90 cursor-pointer" @click="toggleSearch">
                         <img
                             src="../assets/images/icons/search.svg"
                             alt="Search"
-                            class="search-icon cursor-pointer"
-                            @click="toggleSearch" />
+                            class="search-icon h-full w-5 "
+                        />
                         <input
                             v-if="searchOpen"
                             type="text"
                             placeholder="Search"
-                            class="search-input" />
+                            class="search-input h-full" />
                     </div>
-                    <button class="h-8 w-8 group relative opacity-80 w-5" @click="toggleMenu">
-                        <img src="../assets/images/icons/menu.svg" alt="Menu" />
+                    <button class="h-full group relative opacity-80 pl-3 last:pr-3 hover:opacity-90" @click="toggleMenu">
+                        <img src="../assets/images/icons/menu.svg" alt="Menu" class="w-5" />
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- Hamburger Menu -->
-        <div v-if="menuOpen" class="hamburger-menu">
-            <a
-                v-for="item in hamburgerMenuItems"
-                :key="item"
-                href="#"
-                class="nav-item">
-                {{ item }}
-            </a>
-        </div>
+        <transition name="slide-fade">
+            <div v-if="menuOpen" class="hamburger-menu  flex gap-16">
+                <div class="flex gap-4">
+                    <div v-for="column in menuColumns" :key="column.id" class="menu-column">
+                        <a
+                            v-for="item in column.items"
+                            :key="item.id"
+                            href="#"
+                            class="nav-item">
+                            {{ item.label }}
+                        </a>
+                    </div>
+                </div>
+                <a
+                    href="#"
+                    class="nav-item">
+                    Newsletter
+                </a>
+            </div>
+        </transition>
     </header>
 </template>
 
@@ -64,11 +75,30 @@ export default {
             searchOpen: false,
             middleNavItems: ['Topics', 'Moving Now', 'Guidance', 'Sentiment'],
             hamburgerMenuItems: [
-                'Earnings', 'Dividends', 'Guidance', 'M&A', 'Buybacks', 'Legal', 
-                'Interviews', 'Management', 'Offers', 'IPOs', 'Biotech/FDA', 
-                'Politics', 'Government'
+                { id: 1, label: 'Earnings' },
+                { id: 2, label: 'Management' },
+                { id: 3, label: 'Dividends' },
+                { id: 4, label: 'Offers' },
+                { id: 5, label: 'Guidance' },
+                { id: 6, label: 'IPOs' },
+                { id: 7, label: 'M&A' },
+                { id: 8, label: 'Cannabis' },
+                { id: 9, label: 'Biotech' },
+                { id: 10, label: 'Legal' },
+                { id: 11, label: 'Politics' },
+                { id: 12, label: 'Interviews' },
+                { id: 13, label: 'Government' },
             ],
         };
+    },
+    computed: {
+        menuColumns() {
+            const columns = [[], []];
+            this.hamburgerMenuItems.forEach((item, index) => {
+                columns[index % 2].push(item);
+            });
+            return columns.map((items, index) => ({ id: index, items }));
+        }
     },
     methods: {
         toggleMenu() {
@@ -81,21 +111,21 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 header {
     height: 69px;
-    transition: height 0.5s ease-in-out;
 }
 
 .nav-item {
-    font-family: 'Satoshi', sans-serif;
-    color: rgb(255,255,255);
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    position: relative;
-    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-    border-radius: 4px;
+    display: flex;
+    padding: 0rem .75rem;
+    align-items: center;
+    letter-spacing: 0.32px;
+    height: 100%;
+}
+
+.nav-item:hover{
+    color: rgba(255, 255, 255, 0.8);
 }
 
 .search-input {
@@ -108,27 +138,37 @@ header {
 
 .hamburger-menu {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     background-color: #2b2c30;
-    padding: 1rem;
+    padding: 2rem;
     position: absolute;
-    top: 69px;
-    right: 0;
-    width: 200px;
-    z-index: 30;
+    top: 69px; /* Adjusted to be beneath the navbar */
+    left: 0;
+    width: 100%;
+}
+
+.menu-column {
+    display: flex;
+    flex-direction: column;
 }
 
 .hamburger-menu a {
-    padding: 0.5rem 0;
+    padding: 0.5rem 1rem;
     text-transform: uppercase;
     font-size: 0.875rem;
     font-weight: 700;
     color: white;
-    transition: color 0.3s ease-in-out;
 }
 
 .hamburger-menu a:hover {
     color: #ccc;
 }
 
+.slide-fade-enter-active, .slide-fade-leave-active {
+    transition: all 0.2s ease-in-out;
+}
+
+.slide-fade-enter, .slide-fade-leave-to {
+    opacity: 0;
+}
 </style>

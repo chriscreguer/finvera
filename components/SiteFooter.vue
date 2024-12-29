@@ -1,18 +1,29 @@
 <template>
-    <footer class="bg-dark py-12 h-96">
-        <div class="container mx-auto mx-auto px-6 flex flex-col md:flex-row gap-24 h-full">
-            <div class="flex-shrink-0 self-start">
-                <img src="../assets/images/logo-wordmark.svg" class="w-32 h-full" alt="Logo">
-            </div>
-            <div class="flex flex-col flex-wrap gap-x-10 gap-y-4">
+    <footer class="bg-dark py-[70px]">
+        <div class="container-custom mx-auto mx-auto px-6 flex flex-col md:flex-row gap-8 items-start">
+            <div class="flex gap-32">
                 <a
-                    v-for="category in categories"
-                    :key="category"
                     href="#"
-                    class="text-white/90 font-sans nav-item">
-                    {{ category }}
+                    class="flex-shrink-0 self-start">
+                    <img src="../assets/images/logo-wordmark.svg" class="w-26 pt-2" alt="Logo">
                 </a>
+                <div class="flex flex-col md:flex-row gap-10">
+                    <div v-for="(column, index) in columns" :key="index" class="flex flex-col">
+                        <a
+                            v-for="category in column"
+                            :key="category"
+                            href="#"
+                            class="text-white/80 font-sans nav-item py-[7px]">
+                            {{ category }}
+                        </a>
+                    </div>
+                </div>
             </div>
+            <a
+                href="#"
+                class="text-white/80 font-sans nav-item">
+                Newsletter
+            </a>
         </div>
     </footer>
 </template>
@@ -24,41 +35,40 @@ export default {
     name: 'SiteFooter',
 
     setup() {
- 
         const categories = ref([
-            'Market Trends',
-            'Stock Analysis',
-            'Small Cap News',
-            'Earnings Reports',
-            'IPO Updates',
-            'Economic Insights',
-            'Technology Stocks',
-            'Energy Sector',
-            'Financial Services',
-            'Real Estate',
-            'Healthcare',
-            'Consumer Goods',
-            'Industrial Goods',
-            'Cryptocurrency',
-            'Forex Updates',
-            'Global Markets'
+            'Guidance',
+            'Earnings',
+            'Dividends',
+            'Buybacks',
+            'M&A',
+            'IPOs',
+            'Offers',
+            'Tech',
+            'Biotech/FDA',
+            'Manufacturing & Logistics',
+            'Defense',
+            'Retail & E-Commerce',
+            'Media & Entertainment',
+            'Legal',
         ]);
 
+        const columns = ref<string[][]>([]);
+        for (let i = 0; i < categories.value.length; i += 7) {
+            columns.value.push(categories.value.slice(i, i + 7));
+        }
+
         return {
-            categories
+            columns
         };
     }
 };
 </script>
 <style scoped>
 .nav-item {
-    font-family: 'Satoshi', sans-serif;
-    color: rgba(255,255,255, .8);
-    font-weight: 700;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    position: relative;
-    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
-    border-radius: 4px;
+    color: rgba(255,255,255, .7);
+}
+
+.nav-item:hover{
+    color: rgba(255, 255, 255, .9);
 }
 </style>

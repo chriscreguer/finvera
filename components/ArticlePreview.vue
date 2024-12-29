@@ -1,7 +1,15 @@
 <template>
     <!-- Placeholder for articlePreview Component -->
     <div class="article-card" :class="[{'article-card-dark': color === 'dark'}, {'article-card-light': color === 'light'}]">
-        <a href="" class="flex gap-3" :class="[{'flex-row': imageflex === 'row'}, {'flex-col': imageflex === 'col'}]">
+        <a 
+            href="" 
+            class="flex gap-y-[15px] gap-x-5" 
+            :class="[
+                {'py-6': !isFirst && !isLast, 'pt-0 pb-6': isFirst, 'pt-6 pb-0': isLast},
+                {'flex-row items-center': imageflex === 'row'}, 
+                {'flex-col': imageflex === 'col'}
+            ]"
+        >
             <div v-if="image" class="relative overflow-hidden" :class="[{'h-60': size === 'large'}, {'h-32': size === 'default'}, {'w-60': imageflex === 'row'}, {'w-full': imageflex !== 'row'}]">
                 <img
                     class="absolute inset-0 object-cover w-full h-full"
@@ -25,7 +33,7 @@
                         {{ article.title }}
                     </h4>
                 </div>
-                <div class="flex flex-col gap-2">
+                <div class="flex flex-col gap-2.5">
                     <p v-if="description" class="font-sans leading-tight text-black/70" :class="[{'text-sm': size === 'default'}]">{{ article.description }}</p>
                     <div class="flex flex-wrap gap-x-2 items-center text-xs">
                         <span class="text-text/80 font-sans font-bold">
@@ -107,6 +115,8 @@ export default defineComponent({
             required: false,
             default: 'serif',
         },
+        isFirst: Boolean,
+        isLast: Boolean,
     },
 });
 </script>
@@ -115,4 +125,15 @@ export default defineComponent({
 .article-card-dark {
     color: rgba(255, 255, 255, 1);
 }
+
+.article-card h2:hover , .article-card h3:hover , .article-card h4:hover{
+   text-decoration: underline;
+  /*  color: #002c6e; */
+}
+
+/* .article-card:hover img{
+    transform: scale(1.05);
+    transition: all 0.2s ease-in-out;
+}
+     */
 </style>

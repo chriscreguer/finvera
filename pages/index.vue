@@ -3,21 +3,21 @@
         <SiteHeader />
         <!-- Hero Section -->
         <div class="h-min hero">
-            <div class="container-custom mx-auto flex items-center pt-8 pb-12">
+            <div class="container-custom mx-auto flex items-center pt-[1.79rem] pb-12">
                 <div class="grid custom-grid grid-cols-3 divide-x divide-gray">
                     <!-- Left Column -->
                     <div class="left-column flex flex-col divide-y divide-gray px-4">
                         <div 
                             v-for="(article, index) in leftColumnArticles" 
-                            :key="article.id" 
-                            class="pb-6"
-                            :class="{'pt-6': index !== 0}"
+                            :key="article.id"
                         >
                             <articlePreview 
                                 :article="article" 
                                 :description="index === 0" 
                                 :imageflex="index > 0 ? 'row' : 'col'"
                                 :size="index === 0 ? 'large' : 'default'"
+                                :is-first="index === 0"
+                                :is-last="index === leftColumnArticles.length -1"
                             />
                         </div>
                     </div>
@@ -26,25 +26,24 @@
                     <div class="middle-column flex flex-col divide-y divide-gray px-4">
                         <div 
                             v-for="(article, index) in middleColumnArticles" 
-                            :key="article.id" 
-                            class="pb-6"
-                            :class="{'pt-6': index !== 0}"
+                            :key="article.id"
                         >
                             <articlePreview 
                                 :article="article" 
                                 :description="index === 0" 
                                 :image="index !== 2"
+                                :is-first="index === 0"
+                                :is-last="index === middleColumnArticles.length -1"
                             />
                         </div>
                     </div>
 
                     <!-- Right Column -->
                     <div class="right-column flex flex-col divide-y divide-gray px-4">
+                        <h4 class="uppercase text-black/70 text-xs pb-2">Latest News</h4>
                         <div 
-                            v-for="article in rightColumnArticles" 
-                            :key="article.id" 
-                            class="pb-6"
-                            :class="{'pt-6': index !== 0}"
+                            v-for="(article, index) in rightColumnArticles" 
+                            :key="article.id"
                         >
                             <articlePreview 
                                 :article="article" 
@@ -60,8 +59,8 @@
                                 <h2 class="text-[18px]">Stay ahead of the herd.</h2>
                                 <p class="text-sm font-sans mt-1.5 leading-none">Fast, accurate small-cap updates sent to your inbox before the market reacts.</p>
                                 <form class="mt-6">
-                                    <input type="email" class="w-full bg-white/70 text-black px-4 py-2 text-[14px] font-sans placeholder:text-black" placeholder="Enter your email" />
-                                    <button type="submit" class="mt-2 w-full bg-[#232836] bg-secondary py-2 border border-dark text-white font-bold text-xs uppercase font-sans tracking-wider">Join now</button>
+                                    <input type="email" class="w-full bg-white text-black px-3 py-2 text-[14px] font-sans placeholder:text-black/70" placeholder="Enter your email" />
+                                    <button type="submit" class="mt-2 w-full bg-secondary py-2 border border-dark text-white font-bold text-xs uppercase font-sans tracking-wider hover:bg-[#001E4B]">Join now</button>
                                 </form>
                             </div>
                         </div>
@@ -505,6 +504,10 @@ export default {
   }
 
 
+.right-column hr:nth-of-type(1) {
+    display: none;
+}
+
 .article-hero-card {
     color: rgba(255,255,255,1);
     background-color: rgba(0, 0, 0, 0.4);
@@ -531,6 +534,5 @@ export default {
 .article-hero:hover h3 {
     color: #B3D9FF;
 }
-
 
 </style>
