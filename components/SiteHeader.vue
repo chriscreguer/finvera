@@ -7,7 +7,7 @@
             </a>
 
             <!-- Middle Nav Items -->
-            <nav class="flex items-center h-3/4">
+            <nav class="hidden md:flex items-center h-3/4">
                 <a
                     v-for="item in middleNavItems"
                     :key="item"
@@ -19,7 +19,7 @@
 
             <!-- Right Menu -->
             <div class="flex items-center h-3/4 gap-2">
-                <a href="#" class="nav-item">
+                <a href="#" class="nav-item hidden md:block">
                     Newsletter
                 </a>
                 <div class="flex h-full items-center">
@@ -44,8 +44,8 @@
 
         <!-- Hamburger Menu -->
         <transition name="slide-fade">
-            <div v-if="menuOpen" class="hamburger-menu  flex gap-16">
-                <div class="flex gap-4">
+            <div v-if="menuOpen" class="hamburger-menu flex flex-col md:flex-row gap-4 md:gap-16">
+                <div class="flex flex-col md:flex-row gap-4">
                     <div v-for="column in menuColumns" :key="column.id" class="menu-column">
                         <a
                             v-for="item in column.items"
@@ -138,7 +138,7 @@ header {
 
 .hamburger-menu {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background-color: #2b2c30;
     padding: 2rem;
     position: absolute;
@@ -170,5 +170,23 @@ header {
 
 .slide-fade-enter, .slide-fade-leave-to {
     opacity: 0;
+}
+
+@media (max-width: 768px) {
+    .pr-9 {
+        padding-right: 1rem;
+    }
+    .pl-8 {
+        padding-left: 1rem;
+    }
+    .w-screen {
+        width: 100%;
+    }
+    .nav-item {
+        padding: 0.5rem 1rem;
+    }
+    .hamburger-menu {
+        padding: 1rem;
+    }
 }
 </style>

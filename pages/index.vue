@@ -535,4 +535,18 @@ export default {
     color: #B3D9FF;
 }
 
+@media (max-width: 1024px) {
+    .custom-grid {
+        display: block;
+    }
+
+    .left-column,
+    .middle-column,
+    .right-column {
+        width: 100vw;
+        height: 100vh;
+    }
+}
+ 
+
 </style>
