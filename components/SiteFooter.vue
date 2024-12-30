@@ -1,13 +1,13 @@
 <template>
-    <footer class="bg-dark py-[70px]">
+    <footer class="bg-dark pt-8 pb-16 md:py-[70px]">
         <div class="container-custom mx-auto mx-auto px-6 flex flex-col md:flex-row gap-8 items-start">
-            <div class="flex gap-32">
+            <div class="flex flex-col gap-8 md:flex-row md:gap-32">
                 <a
                     href="#"
                     class="flex-shrink-0 self-start">
                     <img src="../assets/images/logo-wordmark.svg" class="w-26 pt-2" alt="Logo">
                 </a>
-                <div class="flex flex-col md:flex-row gap-10">
+                <div class="flex flex-col md:flex-row gap-0 md:gap-10">
                     <div v-for="(column, index) in columns" :key="index" class="flex flex-col">
                         <a
                             v-for="category in column"

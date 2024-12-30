@@ -1,13 +1,13 @@
 <template>
     <header class="sticky top-0 flex flex-col z-40 transition-all text-white bg-dark">
-        <div class="pr-9 pl-8 w-screen flex items-center justify-between h-full">
+        <div class="pr-9 pl-8 flex items-center justify-between h-full">
             <!-- Logo -->
             <a href="/" class="flex items-center h-full px-3">
                 <img src="../assets/images/logo.svg" alt="Logo" class="h-7.5" />
             </a>
 
             <!-- Middle Nav Items -->
-            <nav class="hidden md:flex items-center h-3/4">
+            <nav class="hidden lg:flex items-center h-3/4">
                 <a
                     v-for="item in middleNavItems"
                     :key="item"
@@ -19,33 +19,61 @@
 
             <!-- Right Menu -->
             <div class="flex items-center h-3/4 gap-2">
-                <a href="#" class="nav-item hidden md:block">
-                    Newsletter
-                </a>
+                <div class="hidden lg:flex">
+                    <a href="#" class="nav-item">
+                        Newsletter
+                    </a>
+                </div>
                 <div class="flex h-full items-center">
                     <div class="flex items-center relative h-full px-4 opacity-80 hover:opacity-90 cursor-pointer" @click="toggleSearch">
                         <img
+                            v-if="!searchOpen"
                             src="../assets/images/icons/search.svg"
                             alt="Search"
-                            class="search-icon h-full w-5 "
+                            class="search-icon h-full w-5"
                         />
-                        <input
-                            v-if="searchOpen"
-                            type="text"
-                            placeholder="Search"
-                            class="search-input h-full" />
+                        <img
+                            v-else
+                            src="../assets/images/icons/close.svg"
+                            alt="Close"
+                            class="close-icon h-full w-5"
+                        />
                     </div>
                     <button class="h-full group relative opacity-80 pl-3 last:pr-3 hover:opacity-90" @click="toggleMenu">
-                        <img src="../assets/images/icons/menu.svg" alt="Menu" class="w-5" />
+                        <img
+                            v-if="!menuOpen"
+                            src="../assets/images/icons/menu.svg"
+                            alt="Menu"
+                            class="w-5" />
+                        <img
+                            v-else
+                            src="../assets/images/icons/close.svg"
+                            alt="Close"
+                            class="w-5" />
                     </button>
                 </div>
             </div>
         </div>
+        <!-- Search Bar -->
+        <transition name="slide-fade">
+            <div v-if="searchOpen" class="search-bar absolute w-full bg-dark px-6 md:px-11 p-4 pt-0 flex items-center">
+                <input
+                    type="text"
+                    placeholder="Search"
+                    class="search-input flex-grow font-sans pl-2" />
+            </div>
+        </transition>
+
+        <!-- Search Overlay -->
+        <div
+            v-if="searchOpen"
+            class="search-overlay overlay fixed inset-0 bg-black opacity-50"
+            @click="toggleSearch"></div>
 
         <!-- Hamburger Menu -->
         <transition name="slide-fade">
-            <div v-if="menuOpen" class="hamburger-menu flex flex-col md:flex-row gap-4 md:gap-16">
-                <div class="flex flex-col md:flex-row gap-4">
+            <div v-if="menuOpen" class="hamburger-menu flex flex-row gap-4 md:gap-16">
+                <div class="flex flex-row flex-wrap gap-4">
                     <div v-for="column in menuColumns" :key="column.id" class="menu-column">
                         <a
                             v-for="item in column.items"
@@ -63,6 +91,12 @@
                 </a>
             </div>
         </transition>
+
+        <!-- Hamburger Menu Overlay -->
+        <div
+            v-if="menuOpen"
+            class="menu-overlay overlay fixed inset-0 bg-black opacity-50"
+            @click="toggleMenu"></div>
     </header>
 </template>
 
@@ -103,9 +137,15 @@ export default {
     methods: {
         toggleMenu() {
             this.menuOpen = !this.menuOpen;
+            if (this.menuOpen) {
+                this.searchOpen = false;
+            }
         },
         toggleSearch() {
             this.searchOpen = !this.searchOpen;
+            if (this.searchOpen) {
+                this.menuOpen = false;
+            }
         },
     },
 };
@@ -121,7 +161,6 @@ header {
     padding: 0rem .75rem;
     align-items: center;
     letter-spacing: 0.32px;
-    height: 100%;
 }
 
 .nav-item:hover{
@@ -129,7 +168,7 @@ header {
 }
 
 .search-input {
-    padding: 0.5rem 2rem 0.5rem 0.5rem;
+    padding: 0.5rem 2rem 0.5rem 1rem;
     border: none;
     border-radius: 4px;
     background-color: #333;
@@ -145,6 +184,8 @@ header {
     top: 69px; /* Adjusted to be beneath the navbar */
     left: 0;
     width: 100%;
+    max-height: calc(100vh - 69px); /* Constrain height to viewport */
+    overflow-y: auto; /* Enable vertical scrolling */
 }
 
 .menu-column {
@@ -172,6 +213,18 @@ header {
     opacity: 0;
 }
 
+.search-overlay, .menu-overlay {
+    top: 125px;
+}
+
+.menu-overlay{
+       top: 493px;
+    }
+
+.search-bar {
+    top: 69px;
+}
+
 @media (max-width: 768px) {
     .pr-9 {
         padding-right: 1rem;
@@ -179,14 +232,33 @@ header {
     .pl-8 {
         padding-left: 1rem;
     }
-    .w-screen {
-        width: 100%;
-    }
+
     .nav-item {
         padding: 0.5rem 1rem;
     }
     .hamburger-menu {
         padding: 1rem;
+        top: 60px;
+        height: calc(100vh - 60px);
+        max-height: calc(100vh - 60px); /* Constrain height to viewport */
+        overflow-y: auto; /* Enable vertical scrolling */
+    }
+    
+    .search-overlay {
+        top: 116px;
+    }
+
+    .menu-overlay{
+       display: none;
+    }
+    
+    .search-bar {
+        top: 60px;
+    }
+
+    header {
+    height: 60px;
     }
 }
 </style>
+

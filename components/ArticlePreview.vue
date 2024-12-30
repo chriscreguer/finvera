@@ -5,18 +5,24 @@
             href="" 
             class="flex gap-y-[15px] gap-x-5" 
             :class="[
-                {'py-6': !isFirst && !isLast, 'pt-0 pb-6': isFirst, 'pt-6 pb-0': isLast},
-                {'flex-row items-center': imageflex === 'row'}, 
-                {'flex-col': imageflex === 'col'}
+                {'py-5 md:py-6': !isFirst && !isLast, 'pt-0 pb-5 md:pb-6': isFirst, 'pt-5 med:pt-6 pb-0': isLast},
+                {'flex-col': size === 'large' && imageflex === 'col', 'flex-col md:flex-row items-center': size !== 'large' && imageflex === 'row'}, 
+                {'flex-col': size === 'large' && imageflex === 'col', 'flex-col md:flex-row lg:flex-col items-center': size !== 'large' && imageflex === 'col'}
             ]"
         >
-            <div v-if="image" class="relative overflow-hidden" :class="[{'h-60': size === 'large'}, {'h-32': size === 'default'}, {'w-60': imageflex === 'row'}, {'w-full': imageflex !== 'row'}]">
+            <div v-if="image" class="relative overflow-hidden" :class="[{'h-60': size === 'large'}, {'h-48 md:h-32': size === 'default'}, {'w-full md:w-60': size !== 'large' && imageflex === 'row'}, {'w-full md:w-60 lg:w-full': size !== 'large' && imageflex === 'col'}]">
                 <img
                     class="absolute inset-0 object-cover w-full h-full"
                     :src="`/_nuxt/assets/images/article-${article.id}.png`"
                     loading="lazy">
             </div>
-            <div class="flex flex-col" :class="[{'flex-1': imageflex === 'row'}, {'gap-1': size === 'small', 'gap-2': size !== 'small'}]">
+            <div v-if="!image && size==='default'" class="block lg:hidden relative overflow-hidden" :class="[ {'h-48 md:h-32': size === 'default'}, {'w-full md:w-60': imageflex === 'row'}, {'w-full md:w-60 lg:w-full':  imageflex === 'col'}]">
+                <img
+                    class="absolute inset-0 object-cover w-full h-full"
+                    :src="`/_nuxt/assets/images/article-${article.id}.png`"
+                    loading="lazy">
+            </div>
+            <div class="flex flex-col w-full" :class="[{'flex-1': imageflex === 'row'}, {'flex-1': imageflex === 'col'}, {'gap-1': size === 'small', 'gap-2': size !== 'small'}]">
                 <div class="flex flex-col">
                     <ArticleTags
                         v-if="tags"
@@ -34,7 +40,8 @@
                     </h4>
                 </div>
                 <div class="flex flex-col gap-2.5">
-                    <p v-if="description" class="font-sans leading-tight text-black/70" :class="[{'text-sm': size === 'default'}]">{{ article.description }}</p>
+                    <p v-if="description && size==='large'" class="font-sans leading-tight text-black/70">{{ article.description }}</p>
+                    <p v-if="description && size!=='large'" class="font-sans leading-tight text-black/70 hidden lg:block" :class="[{'text-sm': size === 'default'}]">{{ article.description }}</p>
                     <div class="flex flex-wrap gap-x-2 items-center text-xs">
                         <span class="text-text/80 font-sans font-bold">
                             {{ article.author }}
