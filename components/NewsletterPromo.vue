@@ -1,5 +1,5 @@
 <template>
-    <div class="relative bg-primary-101 newsletter flex items-center py-8 mb-12">
+    <div class="relative bg-primary-101 newsletter flex items-center py-8 mb-6 md:mb-12">
         <div class="container-custom mx-auto flex px-6">
             <div class="relative flex flex-col gap-4 self-center z-10 text-left w-full">
                 <h2 class="text-[42px] md:text-[64px] font-bold text-dark">Stay ahead of the herd.</h2>

@@ -19,7 +19,7 @@
 
             <!-- Right Menu -->
             <div class="flex items-center h-3/4 gap-2">
-                <div class="hidden lg:flex">
+                <div class="hidden lg:flex h-full">
                     <a href="#" class="nav-item">
                         Newsletter
                     </a>
@@ -181,11 +181,11 @@ header {
     background-color: #2b2c30;
     padding: 2rem;
     position: absolute;
-    top: 69px; /* Adjusted to be beneath the navbar */
+    top: 69px; 
     left: 0;
     width: 100%;
-    max-height: calc(100vh - 69px); /* Constrain height to viewport */
-    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: calc(100vh - 69px); 
+    overflow-y: auto;
 }
 
 .menu-column {
@@ -240,8 +240,8 @@ header {
         padding: 1rem;
         top: 60px;
         height: calc(100vh - 60px);
-        max-height: calc(100vh - 60px); /* Constrain height to viewport */
-        overflow-y: auto; /* Enable vertical scrolling */
+        max-height: calc(100vh - 60px); 
+        overflow-y: auto; 
     }
     
     .search-overlay {

@@ -98,7 +98,7 @@
                 </span>
             </p>
 
-            <div class="absolute top-0 right-0 bg-black/20 h-full px-5 py-1 font-sans text-2xl font-bold flex items-center">
+            <div class="absolute top-0 right-0 bg-black/20 h-full px-5 py-1 font-sans text-2xl font-bold flex items-center hidden md:block">
                 <div>
                     <span class="mr-0.5">{{ company.sentiment }}</span>
                     <span class="text-sm font-sans text-white/80">%</span>
@@ -125,7 +125,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import type { PropType } from 'vue';
-import ArticlePreview from '@/components/ArticlePreview.vue';
+import ArticlePreview from '~/components/ArticlePreview/ArticlePreview.vue';
 
 
 interface Quote {

@@ -3,7 +3,7 @@
         <SiteHeader />
         <!-- Hero Section -->
         <div class="h-min hero">
-            <div class="container-custom mx-auto flex items-center pt-4 md:pt-[1.79rem] pb-12">
+            <div class="container-custom mx-auto flex items-center pt-4 md:pt-[1.79rem] md:pb-2 lg:pb-12">
                 <div class="grid custom-grid grid-cols-3 divide-gray lg:divide-x lg:divide-y-0">
                     <!-- Hero - Left Column -->
                     <div class="left-column flex flex-col divide-y divide-gray px-4">
@@ -18,6 +18,7 @@
                                 :size="index === 0 ? 'large' : 'default'"
                                 :is-first="index === 0"
                                 :is-last="index === leftColumnArticles.length -1"
+                                section="hero"
                             />
                         </div>
                     </div>
@@ -36,6 +37,8 @@
                                 :image="index !== 2"
                                 :is-first="index === 0"
                                 :is-last="index === middleColumnArticles.length -1"
+                                section="hero"
+                                size="default"
                             />
                         </div>
                     </div>
@@ -54,10 +57,11 @@
                                     size="small"
                                     font="sans"
                                     :tags="false"
+                                    section="hero"
                                 />
                             </div>
                         </div>
-                        <div class="relative bg-[#005BE3] p-6 text-white sm:max-w-full mt-4 lg:mt-0">
+                        <div class="relative bg-[#005BE3] p-6 text-white sm:max-w-full mt-4 -mx-4 lg:mt-0">
                             <img src="../assets/images/logo-logomark.svg" class="absolute inset-0 w-full h-full object-cover opacity-10 z-0" alt="Watermark Logo">
                             <div class="relative z-10">
                                 <h2 class="text-[18px]">Stay ahead of the herd.</h2>
@@ -74,10 +78,10 @@
         </div>
 
         <!-- Moving Now Section -->
-        <div class="moving-now-section bg-[#333333] text-white py-16 mt-8">
-            <div class="container-custom mx-auto">
+        <div class="moving-now-section bg-[#333333] text-white py-8 md:py-12 lg:py-16 mt-8">
+            <div class="container-custom px-4 mx-auto">
                 <h2 class="font-sans text-2xl mb-6">Moving Now</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
                     <div 
                         v-for="(company, index) in movingNowCompanies" 
                         :key="company.id" 
@@ -109,10 +113,10 @@
         </div>
 
         <!-- Body Section 1 -->
-        <div class="new-section bg-white py-16 mt-8">
-            <div class="container-custom mx-auto grid grid-cols-1 md:grid-cols-2 relative divide-x">
+        <div class="new-section bg-white md:py-6 lg:py-12 mt-8">
+            <div class="container-custom px-4 mx-auto grid grid-cols-1 lg:grid-cols-2 relative lg:divide-x">
                 <!-- Body Section 1 - Left Side -->
-                <div class="left-side flex flex-col pr-6">
+                <div class="left-side flex flex-col lg:pr-6 pb-6 lg:pb-0">
                     <!--  Body Section 1 - Left Side - First Subsection -->
                     <h4 class="uppercase font-sans text-black/70 pb-5">Guidance</h4>
                     <div class="first-subsection flex flex-col section !== 'movingNow' divide-y divide-gray">
@@ -131,7 +135,10 @@
                                 :image="false"
                                 :tags="false"
                                 size="default"
-                                :class="[index===leftSideFirstSubsectionBottomArticles.length-1 ? 'pl-6' : '']"
+                                :class="{
+                                    'pl-4 md:pl-6': index === leftSideFirstSubsectionBottomArticles.length - 1,
+                                    'pr-4 md:pr-6': index === 0
+                                }"
                             />
                         </div>
                     </div>
@@ -153,50 +160,60 @@
                                 :article="article" 
                                 :image="false"
                                 :tags="false"
-                                :class="[index===leftSideSecondSubsectionBottomArticles.length-1 ? 'pl-6' : '']"
+                                :is-last="true"
+                                :class="{
+                                    'pl-4 md:pl-6': index === leftSideSecondSubsectionBottomArticles.length - 1,
+                                    'pr-4 md:pr-6': index === 0
+                                }"
                             />
                         </div>
                     </div>
                 </div>
-
+                <hr class="divide-x lg:hidden pb-6">
                 <!-- Body Section 1 - Right Side -->
-                <div class="right-side grid grid-cols-1 md:grid-cols-2 md:divide-x divide-gray pl-6">
-                    <div class="right-side-column flex flex-col divide-y divide-gray pr-5 ">
+                <div class="right-side grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-x lg:divide-y-0 divide-gray lg:pl-6">
+                    <div class="pb-6 lg:pb-0">
                         <h4 class="uppercase font-sans text-black/70 pb-5">Tech</h4>
-                        <articlePreview 
-                            :article="rightSideFirstColumnTopArticle" 
-                            :imageflex="'col'"
-                            :description="false"
-                            :is-first="true"
-                        />
-                        <div class="flex flex-col divide-y divide-gray">
+                        <div class="right-side-column flex flex-col divide-y divide-gray pr-5 ">    
                             <articlePreview 
-                                v-for="(article) in rightSideFirstColumnBottomArticles" 
-                                :key="article.id" 
-                                :article="article" 
-                                :image="false"
+                                :article="rightSideFirstColumnTopArticle" 
+                                :imageflex="'col'"
                                 :description="false"
-                                class="py-2"
+                                :is-first="true"
                             />
+                            <div class="flex flex-col divide-y divide-gray">
+                                <articlePreview 
+                                    v-for="(article, index) in rightSideFirstColumnBottomArticles" 
+                                    :key="article.id" 
+                                    :article="article" 
+                                    :image="false"
+                                    :description="false"
+                                    class="py-2"
+                                    :is-last="index === rightSideFirstColumnBottomArticles.length -1"
+                                />
+                            </div>
                         </div>
                     </div>
-                    <div class="right-side-column flex flex-col divide-y divide-gray pl-5">
+                    <div class=" lg:pl-5 lg:pt-0 pt-6">
                         <h4 class="uppercase font-sans text-black/70 pb-5">Biotech</h4>
-                        <articlePreview 
-                            :article="rightSideSecondColumnTopArticle" 
-                            :imageflex="'col'"
-                            :description="false"
-                            :is-first="true"
-                        />
-                        <div class="flex flex-col divide-y divide-gray">
+                        <div class="right-side-column flex flex-col divide-y divide-gray">
                             <articlePreview 
-                                v-for="(article) in rightSideSecondColumnBottomArticles" 
-                                :key="article.id" 
-                                :article="article" 
-                                :image="false"
+                                :article="rightSideSecondColumnTopArticle" 
+                                :imageflex="'col'"
                                 :description="false"
-                                class="py-2"
+                                :is-first="true"
                             />
+                            <div class="flex flex-col divide-y divide-gray">
+                                <articlePreview 
+                                    v-for="(article,index) in rightSideSecondColumnBottomArticles" 
+                                    :key="article.id" 
+                                    :article="article" 
+                                    :image="false"
+                                    :description="false"
+                                    class="py-2"
+                                    :is-last="index === rightSideFirstColumnBottomArticles.length -1"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -204,11 +221,11 @@
         </div>
 
         <!-- Market Sentiment Section -->
-        <div class="market-sentiment-section bg-[#0048B4] text-white py-16 mt-8">
-            <div class="container-custom mx-auto">
-                <h2 class="font-sans text-2xl">Market Sentiment</h2>
+        <div class="market-sentiment-section bg-[#0048B4] text-white py-8 md:py-12 lg:py-16 mt-8">
+            <div class="container-custom px-4 mx-auto">
+                <h2 class="font-sans text-2xl leading-tight">Market Sentiment</h2>
                 <p class="font-sans text-lg mb-6 text-white/70">% Positive Sentiment, Past 24 Hours</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
                     <MarketSentimentBox 
                         v-for="company in marketSentimentCompanies"
                         :key="company.id"
@@ -218,87 +235,106 @@
             </div>
         </div>
 
-        <!-- Body Section 2 -->
-        <div class="additional-section bg-white py-16 mt-8">
-            <div class="container-custom mx-auto grid grid-cols-1 md:grid-cols-3 relative divide-x">
-                <!-- Body Section 2 - First Column -->
-                <div class="first-column flex flex-col pr-6 md:col-span-2">
-                    <h4 class="uppercase font-sans text-black/70 pb-5">Manufacturing & Logistics</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-8 gap-7">
-                        <div class="first-subsection flex flex-col col-span-5 divide-y divide-gray">
-                            <articlePreview 
-                                :article="additionalSectionFirstColumnLargeArticle" 
-                                :description="true"
-                                image-flex="col"
-                                :tags="false"
-                                size="large"
-                                :is-first="true"
-                            />
+        <div class="container-custom mx-auto px-4 flex flex-col divide-y divide-gray md:pt-6 lg:pt-12 pb-8">
+            <!-- Body Section 2 -->
+            <div class="additional-section bg-white mt-8">
+                <div class="lg:px-4 mx-auto grid grid-cols-1 lg:grid-cols-3 relative divide-y lg:divide-y-0 lg:divide-x">
+                    <!-- Body Section 2 - First Column -->
+                    <div class="first-column flex flex-col lg:pr-6 md:col-span-2 pb-8 lg:pb-0">
+                        <div class="divide-y divide-gray">
+                            <div>
+                                <h4 class="uppercase font-sans text-black/70 pb-5">Manufacturing & Logistics</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-8 md:gap-7">
+                                    <div class="first-subsection flex flex-col col-span-5 divide-y md:divide-y-0 divide-gray pb-8 md:pb-0">
+                                        <articlePreview 
+                                            :article="additionalSectionFirstColumnLargeArticle" 
+                                            :description="true"
+                                            image-flex="col"
+                                            :tags="false"
+                                            size="large"
+                                            :is-first="true"
+                                            :is-last="true"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="second-subsection flex flex-col divide-y col-span-3 divide-gray pt-8 md:pt-0">
+                                    <articlePreview 
+                                        v-for="(article, index) in additionalSectionFirstColumnSmallArticles" 
+                                        :key="article.id" 
+                                        :article="article" 
+                                        :image="false"
+                                        :description="false"
+                                        :is-first="index === 0"
+                                        :is-last="index === additionalSectionFirstColumnSmallArticles.length -1"
+                                        :tags="false"
+                                        :class="['py-2' ? index !== 0 : '']"
+                                    />
+                                </div>
+                            </div>
                         </div>
-                        <div class="second-subsection flex flex-col divide-y col-span-3 divide-gray">
+                    </div>
+                    <!-- Body Section 2 - Second Column -->
+                    <div class="second-column flex flex-col lg:pl-6 pt-8 lg:pt-0">
+                        <h4 class="uppercase font-sans text-black/70 pb-5">Defense</h4>
+                        <div class="flex flex-col divide-y divide-gray">
                             <articlePreview 
-                                v-for="(article, index) in additionalSectionFirstColumnSmallArticles" 
+                                v-for="(article, index) in additionalSectionSecondColumnArticles" 
                                 :key="article.id" 
                                 :article="article" 
+                                :is-first="index === 0"
+                                :is-last="index === additionalSectionFirstColumnSmallArticles.length -1"
                                 :image="false"
                                 :description="false"
-                                :is-first="index === 0"
                                 :tags="false"
                                 class="py-2"
                             />
                         </div>
                     </div>
                 </div>
-
-                <!-- Body Section 2 - Second Column -->
-                <div class="second-column flex flex-col pl-6">
-                    <h4 class="uppercase font-sans text-black/70 pb-5">Defense</h4>
-                    <div class="flex flex-col divide-y divide-gray">
-                        <articlePreview 
-                            v-for="(article, index) in additionalSectionSecondColumnArticles" 
-                            :key="article.id" 
-                            :article="article" 
-                            :is-first="index === 0"
-                            :image="false"
-                            :description="false"
-                            :tags="false"
-                            class="py-2"
-                        />
-                    </div>
-                </div>
             </div>
-        </div>
-      
-        <!-- Body Section 3 -->
-        <div class="new-additional-section bg-white pb-16 mt-8">
-            <div class="container-custom mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!--Body Section 3 - First Column -->
-                <div class="first-column flex flex-col divide-y divide-gray">
-                    <h4 class="uppercase font-sans text-black/70 pb-5">Retail & ECommerce</h4>
-                    <articlePreview 
-                        v-for="(article, index) in newAdditionalSectionFirstColumnArticles" 
-                        :key="article.id" 
-                        :article="article" 
-                        :imageflex="'row'"
-                        :description="false"
-                        :tags="false"
-                        :is-first="index === 0"
-                        class="py-2"
-                    />
-                </div>
-                <!-- Body Section 3 - Second Column -->
-                <div class="second-column flex flex-col divide-y divide-gray">
-                    <h4 class="uppercase font-sans text-black/70 pb-5">Media & Entertainment</h4>
-                    <articlePreview 
-                        v-for="(article, index) in newAdditionalSectionSecondColumnArticles" 
-                        :key="article.id" 
-                        :article="article" 
-                        :imageflex="'row'"
-                        :description="false"
-                        :tags="false"
-                        :is-first="index === 0"
-                        class="py-2"
-                    />
+
+            <!-- Body Section 3 -->
+            <div class="new-additional-section bg-white pt-10 pb-2 md:pb-8 lg:pb-16 mt-4 lg:mt-8">
+                <div class="lg:px-4 mx-auto grid grid-cols-1 lg:grid-cols-2 lg:divide-x divide-gray">
+                    <!--Body Section 3 - First Column -->
+                    <div class="first-column flex flex-col lg:pr-8 pb-4 md:pb-8 lg:pb-0">
+                        <h4 class="uppercase font-sans text-black/70 pb-5">Retail & ECommerce</h4>
+                        <div class="divide-y divide-gray">
+                            <articlePreview 
+                                v-for="(article, index) in newAdditionalSectionFirstColumnArticles" 
+                                :key="article.id" 
+                                :article="article" 
+                                :imageflex="'row'"
+                                :description="false"
+                                size="medium"
+                                :tags="false"
+                                :is-first="index === 0"
+                                :is-last="index === newAdditionalSectionFirstColumnArticles.length -1"
+                                class="py-2"
+                            />
+                        </div>
+                    </div>
+                    <hr class="divide-x lg:hidden lg:pb-8">
+                    <!-- Body Section 3 - Second Column -->
+                    <div class="second-column flex flex-col pt-8 lg:pt-8 lg:pl-8">
+                        <h4 class="uppercase font-sans text-black/70 pb-5">Media & Entertainment</h4>
+                        <div class="divide-y divide-gray">
+                            <articlePreview 
+                                v-for="(article, index) in newAdditionalSectionSecondColumnArticles" 
+                                :key="article.id" 
+                                :article="article" 
+                                :imageflex="'row'"
+                                :description="false"
+                                size="medium"
+                                :tags="false"
+                                :is-first="index === 0"
+                                :is-last="index === newAdditionalSectionSecondColumnArticles.length -1"
+                                class="py-2"
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -311,7 +347,7 @@
 <script lang="ts">
 import { ref, onMounted } from 'vue';
 import SiteHeader from '@/components/SiteHeader.vue';
-import articlePreview from '@/components/ArticlePreview.vue';
+import articlePreview from '~/components/ArticlePreview/ArticlePreview.vue';
 import NewsletterPromo from '@/components/NewsletterPromo.vue';
 import { mockArticles, mockMovingNowCompanies, mockMarketSentimentCompanies } from '~/data/MockData';
 import MarketSentimentBox from '@/components/MarketSentimentBox.vue';
@@ -465,36 +501,8 @@ export default {
     color: rgba(39, 41, 43, .12);
   }
 
-
 .right-column hr:nth-of-type(1) {
     display: none;
-}
-
-.article-hero-card {
-    color: rgba(255,255,255,1);
-    background-color: rgba(0, 0, 0, 0.4);
-    border-radius: 4px;
-    height: min-content;
-}
-
-.article-hero-card:hover {
-    background-color: rgba(0, 0, 0, 0.45);
-}
-
-.article-hero-card:hover h1 {
-    color: #B3D9FF;
-}
-
-.article-card:hover{
-    color: rgba(0, 57, 143, 1);
-}
-
-.article-hero {
-    color: rgba(255,255,255,1);
-}
-
-.article-hero:hover h3 {
-    color: #B3D9FF;
 }
 
 @media (max-width: 1023px) {
