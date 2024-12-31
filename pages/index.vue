@@ -5,7 +5,7 @@
         <div class="h-min hero">
             <div class="container-custom mx-auto flex items-center pt-4 md:pt-[1.79rem] pb-12">
                 <div class="grid custom-grid grid-cols-3 divide-gray lg:divide-x lg:divide-y-0">
-                    <!-- Left Column -->
+                    <!-- Hero - Left Column -->
                     <div class="left-column flex flex-col divide-y divide-gray px-4">
                         <div 
                             v-for="(article, index) in leftColumnArticles" 
@@ -24,7 +24,7 @@
 
                     <hr class="mx-4 divide-x lg:hidden">
 
-                    <!-- Middle Column -->
+                    <!-- Hero - Middle Column -->
                     <div class="middle-column flex flex-col divide-y divide-gray px-4">
                         <div 
                             v-for="(article, index) in middleColumnArticles" 
@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <!-- Right Column -->
+                    <!-- Hero - Right Column -->
                     <div class="right-column flex flex-col divide-y divide-gray px-4 pt-4 lg:pt-0">
                         <h4 class="uppercase text-black/70 text-xs pb-2">Latest News</h4>
                         <div class="md:grid md:grid-cols-2 lg:grid-cols-1 md:gap-x-8 divide-y">
@@ -108,12 +108,12 @@
             </div>
         </div>
 
-        <!-- New Section -->
+        <!-- Body Section 1 -->
         <div class="new-section bg-white py-16 mt-8">
             <div class="container-custom mx-auto grid grid-cols-1 md:grid-cols-2 relative divide-x">
-                <!-- Left Side -->
+                <!-- Body Section 1 - Left Side -->
                 <div class="left-side flex flex-col pr-6">
-                    <!-- First Subsection -->
+                    <!--  Body Section 1 - Left Side - First Subsection -->
                     <h4 class="uppercase font-sans text-black/70 pb-5">Guidance</h4>
                     <div class="first-subsection flex flex-col section !== 'movingNow' divide-y divide-gray">
                         <articlePreview 
@@ -136,7 +136,7 @@
                         </div>
                     </div>
                     <hr class="divide-x">
-                    <!-- Second Subsection -->
+                    <!--  Body Section 1 - Left Side - Second Subsection -->
                     <h4 class="uppercase font-sans text-black/70 py-5 pt-7">Earnings</h4>
                     <div class="second-subsection flex flex-col section !== 'movingNow' divide-y divide-gray">
                         <articlePreview 
@@ -159,7 +159,7 @@
                     </div>
                 </div>
 
-                <!-- Right Side -->
+                <!-- Body Section 1 - Right Side -->
                 <div class="right-side grid grid-cols-1 md:grid-cols-2 md:divide-x divide-gray pl-6">
                     <div class="right-side-column flex flex-col divide-y divide-gray pr-5 ">
                         <h4 class="uppercase font-sans text-black/70 pb-5">Tech</h4>
@@ -218,10 +218,10 @@
             </div>
         </div>
 
-        <!-- Additional Section -->
+        <!-- Body Section 2 -->
         <div class="additional-section bg-white py-16 mt-8">
             <div class="container-custom mx-auto grid grid-cols-1 md:grid-cols-3 relative divide-x">
-                <!-- First Column -->
+                <!-- Body Section 2 - First Column -->
                 <div class="first-column flex flex-col pr-6 md:col-span-2">
                     <h4 class="uppercase font-sans text-black/70 pb-5">Manufacturing & Logistics</h4>
                     <div class="grid grid-cols-1 md:grid-cols-8 gap-7">
@@ -250,7 +250,7 @@
                     </div>
                 </div>
 
-                <!-- Second Column -->
+                <!-- Body Section 2 - Second Column -->
                 <div class="second-column flex flex-col pl-6">
                     <h4 class="uppercase font-sans text-black/70 pb-5">Defense</h4>
                     <div class="flex flex-col divide-y divide-gray">
@@ -269,12 +269,12 @@
             </div>
         </div>
       
-        <!-- New Additional Section -->
+        <!-- Body Section 3 -->
         <div class="new-additional-section bg-white pb-16 mt-8">
             <div class="container-custom mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- First Column -->
+                <!--Body Section 3 - First Column -->
                 <div class="first-column flex flex-col divide-y divide-gray">
-                    <h4 class="uppercase font-sans text-black/70 pb-5">New Column Title 1</h4>
+                    <h4 class="uppercase font-sans text-black/70 pb-5">Retail & ECommerce</h4>
                     <articlePreview 
                         v-for="(article, index) in newAdditionalSectionFirstColumnArticles" 
                         :key="article.id" 
@@ -286,9 +286,9 @@
                         class="py-2"
                     />
                 </div>
-                <!-- Second Column -->
+                <!-- Body Section 3 - Second Column -->
                 <div class="second-column flex flex-col divide-y divide-gray">
-                    <h4 class="uppercase font-sans text-black/70 pb-5">New Column Title 2</h4>
+                    <h4 class="uppercase font-sans text-black/70 pb-5">Media & Entertainment</h4>
                     <articlePreview 
                         v-for="(article, index) in newAdditionalSectionSecondColumnArticles" 
                         :key="article.id" 
@@ -313,9 +313,8 @@ import { ref, onMounted } from 'vue';
 import SiteHeader from '@/components/SiteHeader.vue';
 import articlePreview from '@/components/ArticlePreview.vue';
 import NewsletterPromo from '@/components/NewsletterPromo.vue';
-import { mockArticles, mockMarketSentimentCompanies } from '@/data/MockArticles';
+import { mockArticles, mockMovingNowCompanies, mockMarketSentimentCompanies } from '~/data/MockData';
 import MarketSentimentBox from '@/components/MarketSentimentBox.vue';
-import { mockMovingNow } from '~/data/MockMovingNowCompanies';
 
 export default {
     name: 'HomePage',
@@ -404,7 +403,7 @@ export default {
         };
 
         const distributeMovingNow = () => {
-            if (mockMovingNow.length > 0) movingNowCompanies.value = mockMovingNow;
+            if (mockMovingNowCompanies.length > 0) movingNowCompanies.value = mockMovingNowCompanies;
         };
 
         const distributeMarketSentiment = () => {
@@ -447,7 +446,6 @@ export default {
     display: grid;
     grid-template-columns: 4.45fr 3.32fr 2.23fr;
 }
-
 
   html, body {
     height: 100%;

@@ -1,5 +1,4 @@
 <template>
-    <!-- Placeholder for articlePreview Component -->
     <div
         class="article-card"
         :class="[
