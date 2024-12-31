@@ -1,5 +1,3 @@
-// src/data/mockArticles.ts
-
 export interface Article {
     id: number;
     title: string;
@@ -331,8 +329,8 @@ export const mockArticles: Article[] = [
     },
     { 
         id: 30, 
-        title: 'Uber Launches Self-Driving Car Service in Major Cities', 
-        description: 'Uber rolls out its self-driving car service in several major cities.', 
+        title: 'XPO Logistics to Spin Off Brokerage Unit Amid Strong Demand for Freight Solutions', 
+        description: 'XPO plans to separate its brokerage division to focus on its core LTL business, aiming to capitalize on strong demand for freight solutions.', 
         author: 'Travis Kalanick', 
         time: '50 mins ago', 
         tags: [
@@ -342,7 +340,7 @@ export const mockArticles: Article[] = [
     },
     { 
         id: 31, 
-        title: 'Spotify Introduces New Podcast Subscription Service', 
+        title: 'Helios Technologies Acquires Hydraulic Systems Company to Boost Market Share', 
         description: 'Spotify launches a new subscription service for podcast enthusiasts.', 
         author: 'Daniel Ek', 
         time: '55 mins ago', 
@@ -351,4 +349,168 @@ export const mockArticles: Article[] = [
             { text: 'Entertainment' },
         ],
     }
+    ,
+    {
+        id: 32,
+        title: 'Astec Industries Reports Strong Backlog Despite Higher Input Costs',
+        description: 'Samsung introduces its latest foldable phone model with enhanced features.',
+        author: 'Jane Doe',
+        time: '1 hour ago',
+        tags: [
+            { text: 'Samsung', trend: +1.5 },
+            { text: 'Technology' },
+        ],
+    },
+    {
+        id: 33,
+        title: 'Lordstown Motors Faces New Hurdles After Delayed Launch of Endurance Pickup',
+        description: 'Sony announces new features and services for its PlayStation Network.',
+        author: 'Alice Johnson',
+        time: '3 hours ago',
+        tags: [
+            { text: 'Sony', trend: +1.8 },
+            { text: 'Gaming' },
+        ],
+    },
+    {
+        id: 34,
+        title: 'Kratos Defense Signs New Deal to Supply Tactical Drones to NATO',
+        description: 'NVIDIA reports record earnings for the quarter, driven by strong demand for its GPUs.',
+        author: 'Michael Lee',
+        time: '4 hours ago',
+        tags: [
+            { text: 'NVIDIA', trend: +3.0 },
+            { text: 'Technology' },
+        ],
+    },
+    {
+        id: 35,
+        title: 'Redwire Corporation to Build Lunar Structures for Artemis Program',
+        description: 'NVIDIA reports record earnings for the quarter, driven by strong demand for its GPUs.',
+        author: 'Michael Lee',
+        time: '4 hours ago',
+        tags: [
+            { text: 'NVIDIA', trend: +3.0 },
+            { text: 'Technology' },
+        ],
+    },
+    {
+        id: 36,
+        title: 'Aerojet Rocketdyne Secures $250M Contract for Hypersonic Missile Development',
+        description: 'NVIDIA reports record earnings for the quarter, driven by strong demand for its GPUs.',
+        author: 'Michael Lee',
+        time: '4 hours ago',
+        tags: [
+            { text: 'NVIDIA', trend: +3.0 },
+            { text: 'Technology' },
+        ],
+    }
+    ,
+    {
+        id: 37,
+        title: 'SpaceX Successfully Launches and Lands Starship Prototype',
+        description: 'SpaceX achieves a major milestone with the successful launch and landing of its Starship prototype.',
+        author: 'Elon Musk',
+        time: '10 minutes ago',
+        tags: [
+            { text: 'SpaceX', trend: +4.0 },
+            { text: 'Aerospace' },
+        ],
+    },
+    {
+        id: 38,
+        title: 'Pfizer Announces Breakthrough in Cancer Treatment',
+        description: 'Pfizer reveals a significant breakthrough in cancer treatment, showing promising results in clinical trials.',
+        author: 'Dr. Jane Smith',
+        time: '20 minutes ago',
+        tags: [
+            { text: 'Pfizer', trend: +3.2 },
+            { text: 'Healthcare' },
+        ],
+    },
+    {
+        id: 39,
+        title: 'Amazon Expands Grocery Delivery Service to More Cities',
+        description: 'Amazon continues to expand its grocery delivery service, now available in more cities across the country.',
+        author: 'Jeff Bezos',
+        time: '30 minutes ago',
+        tags: [
+            { text: 'Amazon', trend: +2.1 },
+            { text: 'Retail' },
+        ],
+    },
+    {
+        id: 40,
+        title: 'Google AI Develops New Language Translation Model',
+        description: 'Google AI introduces a new language translation model that significantly improves accuracy and speed.',
+        author: 'Sundar Pichai',
+        time: '40 minutes ago',
+        tags: [
+            { text: 'Google', trend: +3.8 },
+            { text: 'Technology' },
+        ],
+    },
+    {
+        id: 41,
+        title: 'Tesla Opens New Gigafactory in Texas',
+        description: 'Tesla celebrates the grand opening of its new Gigafactory in Texas, expected to boost production capacity.',
+        author: 'Elon Musk',
+        time: '50 minutes ago',
+        tags: [
+            { text: 'Tesla', trend: +2.7 },
+            { text: 'Auto' },
+        ],
+    },
+    {
+        id: 42,
+        title: 'Apple Launches New Subscription Service for Fitness Enthusiasts',
+        description: 'Apple introduces a new subscription service tailored for fitness enthusiasts, offering exclusive content and features.',
+        author: 'Tim Cook',
+        time: '1 hour ago',
+        tags: [
+            { text: 'Apple', trend: +2.9 },
+            { text: 'Technology' },
+        ],
+    }
+];
+
+export interface MarketSentimentCompany {
+    id: number;
+    company: string;
+    ticker: { text: string; trend: number }[];
+    sentiment: number;
+    quotes: { id: number; title: string; author: string; time: string }[];
+}
+
+export const mockMarketSentimentCompanies: MarketSentimentCompany[] = [
+    {
+        id: 1,
+        company: 'Fuel Cell Industries',
+        ticker: [{ text: 'FLCL', trend: 4.1 }],
+        sentiment: 83,
+        quotes: [
+            { id: 101, title: '"FLCL is so undervalued it’s unreal."', author: '@mark235263', time: 'X (Twitter)' },
+            { id: 102, title: '“The roadmap is solid, especially with the new administration”', author: '@telekenetic-Dolphin3571', time: 'Reddit' },
+        ],
+    },
+    {
+        id: 2,
+        company: 'Cinedigm',
+        ticker: [{ text: 'CIDM', trend: -2.3 }],
+        sentiment: 27,
+        quotes: [
+            { id: 103, title: '“Leadership is completely incompetent”', author: '@AlexRoald34', time: 'X (Twitter)' },
+            { id: 104, title: '“...a really good play right now”', author: '@sinkhole-blue5146', time: 'Reddit' },
+        ],
+    },
+    {
+        id: 3,
+        company: 'AIMTREE HOLDINGS',
+        ticker: [{ text: 'AMTR', trend: -1.1 }],
+        sentiment: 46,
+        quotes: [
+            { id: 103, title: '“Can’t hold AMTR any longer. There’s no future there...”', author: '@RudePaul12', time: 'X (Twitter)' },
+            { id: 104, title: '“...board is full of cronies...”', author: '@DeadRedEye3', time: 'Reddit' },
+        ],
+    },
 ];
