@@ -61,7 +61,7 @@
                                 />
                             </div>
                         </div>
-                        <div class="relative bg-[#005BE3] p-6 text-white sm:max-w-full mt-4 -mx-4 lg:mt-0">
+                        <div class="relative bg-[#005BE3] p-6 text-white sm:max-w-full mt-4 -mx-4 md:mx-0 lg:mt-0">
                             <img src="../assets/images/logo-logomark.svg" class="absolute inset-0 w-full h-full object-cover opacity-10 z-0" alt="Watermark Logo">
                             <div class="relative z-10">
                                 <h2 class="text-[18px]">Stay ahead of the herd.</h2>
@@ -78,7 +78,7 @@
         </div>
 
         <!-- Moving Now Section -->
-        <div class="moving-now-section bg-[#333333] text-white py-8 md:py-12 lg:py-16 mt-8">
+        <div class="moving-now-section bg-[#333333] text-white py-8 xl:py-16 mt-8">
             <div class="container-custom px-4 mx-auto">
                 <h2 class="font-sans text-2xl mb-6">Moving Now</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
@@ -221,10 +221,10 @@
         </div>
 
         <!-- Market Sentiment Section -->
-        <div class="market-sentiment-section bg-[#0048B4] text-white py-8 md:py-12 lg:py-16 mt-8">
+        <div class="market-sentiment-section bg-[#0048B4] text-white py-8 md:py-12 xl:py-16 mt-8">
             <div class="container-custom px-4 mx-auto">
                 <h2 class="font-sans text-2xl leading-tight">Market Sentiment</h2>
-                <p class="font-sans text-lg mb-6 text-white/70">% Positive Sentiment, Past 24 Hours</p>
+                <p class="font-sans text-lg leading-tight mb-6 text-white/70">% Positive Sentiment, Past 24 Hours</p>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
                     <MarketSentimentBox 
                         v-for="company in marketSentimentCompanies"
@@ -238,14 +238,14 @@
         <div class="container-custom mx-auto px-4 flex flex-col divide-y divide-gray md:pt-6 lg:pt-12 pb-8">
             <!-- Body Section 2 -->
             <div class="additional-section bg-white mt-8">
-                <div class="lg:px-4 mx-auto grid grid-cols-1 lg:grid-cols-3 relative divide-y lg:divide-y-0 lg:divide-x">
+                <div class=" mx-auto grid grid-cols-1 lg:grid-cols-3 relative divide-y lg:divide-y-0 lg:divide-x">
                     <!-- Body Section 2 - First Column -->
                     <div class="first-column flex flex-col lg:pr-6 md:col-span-2 pb-8 lg:pb-0">
-                        <div class="divide-y divide-gray">
-                            <div>
-                                <h4 class="uppercase font-sans text-black/70 pb-5">Manufacturing & Logistics</h4>
-                                <div class="grid grid-cols-1 md:grid-cols-8 md:gap-7">
-                                    <div class="first-subsection flex flex-col col-span-5 divide-y md:divide-y-0 divide-gray pb-8 md:pb-0">
+                        <h4 class="uppercase font-sans text-black/70 pb-5">Manufacturing & Logistics</h4>
+                        <div class="divide-y md:divide-y-0 divide-gray grid grid-cols-1 md:grid-cols-8 md:gap-7">
+                            <div class="col-span-5">
+                                <div class="">
+                                    <div class="first-subsection flex flex-col divide-y md:divide-y-0 divide-gray pb-8 md:pb-0">
                                         <articlePreview 
                                             :article="additionalSectionFirstColumnLargeArticle" 
                                             :description="true"
@@ -258,7 +258,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div class="col-span-3">
                                 <div class="second-subsection flex flex-col divide-y col-span-3 divide-gray pt-8 md:pt-0">
                                     <articlePreview 
                                         v-for="(article, index) in additionalSectionFirstColumnSmallArticles" 
@@ -297,7 +297,7 @@
 
             <!-- Body Section 3 -->
             <div class="new-additional-section bg-white pt-10 pb-2 md:pb-8 lg:pb-16 mt-4 lg:mt-8">
-                <div class="lg:px-4 mx-auto grid grid-cols-1 lg:grid-cols-2 lg:divide-x divide-gray">
+                <div class="mx-auto grid grid-cols-1 lg:grid-cols-2 lg:divide-x divide-gray">
                     <!--Body Section 3 - First Column -->
                     <div class="first-column flex flex-col lg:pr-8 pb-4 md:pb-8 lg:pb-0">
                         <h4 class="uppercase font-sans text-black/70 pb-5">Retail & ECommerce</h4>
@@ -318,7 +318,7 @@
                     </div>
                     <hr class="divide-x lg:hidden lg:pb-8">
                     <!-- Body Section 3 - Second Column -->
-                    <div class="second-column flex flex-col pt-8 lg:pt-8 lg:pl-8">
+                    <div class="second-column flex flex-col pt-8 lg:pt-0 lg:pl-8">
                         <h4 class="uppercase font-sans text-black/70 pb-5">Media & Entertainment</h4>
                         <div class="divide-y divide-gray">
                             <articlePreview 

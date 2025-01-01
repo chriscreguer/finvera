@@ -1,61 +1,36 @@
 <template>
     <div class="market-sentiment-box bg-black/20">
         <!-- Header Section -->
-        <div class="header bg-black/30 p-5 relative flex flex-col gap-1">
-            <h3 class="font-sans font-bold text-xs text-white/90 tracking-[0.5px] uppercase">
-                {{ company.company }} ({{ company.ticker[0]?.text }})
-                <span :class="company.ticker[0] && company.ticker[0].trend > 0 ? 'text-green' : 'text-red'"
+        <div class="header bg-black/30 relative flex justify-between items-center h-[76px]">
+            <div class="flex flex-col gap-1 p-5">
+                <h3 class="font-sans font-bold text-xs text-white/90 tracking-[0.5px] uppercase">
+                    {{ company.company }} ({{ company.ticker[0]?.text }})
+                    <span :class="company.ticker[0] && company.ticker[0].trend > 0 ? 'text-green' : 'text-red'"
+                    >
+                        {{ company.ticker[0]?.trend > 0 ? '+' : '' }}{{ company.ticker[0]?.trend }}%
+                    </span>
+                </h3>
+                <p 
+                    class="font-sans text-xs flex items-center gap-1.5 tracking-[0.5px] uppercase font-bold"
+                    :class="{
+                        'text-green': company.sentiment > 60,
+                        'text-red': company.sentiment <= 40,
+                        'text-white/80': company.sentiment > 40 && company.sentiment <= 60
+                    }"
                 >
-                    {{ company.ticker[0]?.trend > 0 ? '+' : '' }}{{ company.ticker[0]?.trend }}%
-                </span>
-            </h3>
-            <p 
-                class="font-sans text-xs flex items-center gap-1.5 tracking-[0.5px] uppercase font-bold"
-                :class="{
-                    'text-green': company.sentiment > 60,
-                    'text-red': company.sentiment <= 40,
-                    'text-white/80': company.sentiment > 40 && company.sentiment <= 60
-                }"
-            >
-                <svg
-                    v-if="company.sentiment > 80"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="3"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="feather feather-smile">
-                    <circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line
-                        x1="9"
-                        y1="9"
-                        x2="9.01"
-                        y2="9"></line><line
-                            x1="15"
-                            y1="9"
-                            x2="15.01"
-                            y2="9"></line>
-                </svg>
-                <svg
-                    v-if="company.sentiment > 40 && company.sentiment <= 60"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="3"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="feather feather-meh">
-                    <circle cx="12" cy="12" r="10"></circle><line
-                        x1="8"
-                        y1="15"
-                        x2="16"
-                        y2="15"></line><line
+                    <svg
+                        v-if="company.sentiment > 80"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-smile">
+                        <circle cx="12" cy="12" r="10"></circle><path d="M8 14s1.5 2 4 2 4-2 4-2"></path><line
                             x1="9"
                             y1="9"
                             x2="9.01"
@@ -64,41 +39,67 @@
                                 y1="9"
                                 x2="15.01"
                                 y2="9"></line>
-                </svg>
-                <svg
-                    v-if="company.sentiment <= 40"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="3"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="feather feather-frown">
-                    <circle cx="12" cy="12" r="10"></circle><path d="M16 16s-1.5-2-4-2-4 2-4 2"></path><line
-                        x1="9"
-                        y1="9"
-                        x2="9.01"
-                        y2="9"></line><line
-                            x1="15"
+                    </svg>
+                    <svg
+                        v-if="company.sentiment > 40 && company.sentiment <= 60"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-meh">
+                        <circle cx="12" cy="12" r="10"></circle><line
+                            x1="8"
+                            y1="15"
+                            x2="16"
+                            y2="15"></line><line
+                                x1="9"
+                                y1="9"
+                                x2="9.01"
+                                y2="9"></line><line
+                                    x1="15"
+                                    y1="9"
+                                    x2="15.01"
+                                    y2="9"></line>
+                    </svg>
+                    <svg
+                        v-if="company.sentiment <= 40"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="3"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="feather feather-frown">
+                        <circle cx="12" cy="12" r="10"></circle><path d="M16 16s-1.5-2-4-2-4 2-4 2"></path><line
+                            x1="9"
                             y1="9"
-                            x2="15.01"
-                            y2="9"></line>
-                </svg>
-                <span>
-                    {{
-                        company.sentiment > 80 ? 'Very Positive' :
-                        company.sentiment > 60 ? 'Positive' :
-                        company.sentiment > 40 ? 'Mixed' :
-                        company.sentiment > 20 ? 'Negative' :
-                        'Very Negative'
-                    }}
-                </span>
-            </p>
-
-            <div class="absolute top-0 right-0 bg-black/20 h-full px-5 py-1 font-sans text-2xl font-bold flex items-center hidden md:block">
+                            x2="9.01"
+                            y2="9"></line><line
+                                x1="15"
+                                y1="9"
+                                x2="15.01"
+                                y2="9"></line>
+                    </svg>
+                    <span>
+                        {{
+                            company.sentiment > 80 ? 'Very Positive' :
+                            company.sentiment > 60 ? 'Positive' :
+                            company.sentiment > 40 ? 'Mixed' :
+                            company.sentiment > 20 ? 'Negative' :
+                            'Very Negative'
+                        }}
+                    </span>
+                </p>
+            </div>
+            <div class="bg-black/20 h-full px-5 py-1 font-sans text-2xl font-bold items-center flex">
                 <div>
                     <span class="mr-0.5">{{ company.sentiment }}</span>
                     <span class="text-sm font-sans text-white/80">%</span>

@@ -5,8 +5,8 @@
                 <h2 class="text-[42px] md:text-[64px] font-bold text-dark">Stay ahead of the herd.</h2>
                 <p class="text-xl font-sans font-medium text-text-light">Fast, accurate small-cap updates sent to your inbox before the market reacts.</p>
                 <form class="mt-4 flex flex-col md:flex-row">
-                    <input type="email" class="w-full md:w-1/3 px-5 py-5 h-[76px] border border-black/10 text-xl font-sans placeholder:text-black/70" placeholder="Enter your email" />
-                    <button type="submit" class="mt-3 md:mt-0 md:-ml-px px-8 py-5 md:h-[76px] bg-primary-500 border border-primary text-white font-bold text-base uppercase font-sans tracking-wider">Join now</button>
+                    <input type="email" class="w-full md:w-2/3 lg:w-1/3 px-5 py-5 h-[76px] border border-black/10 text-xl font-sans placeholder:text-black/70" placeholder="Enter your email" />
+                    <button type="submit" class="mt-3 md:mt-0 md:-ml-px px-8 py-5 md:h-[76px] bg-primary-500 border border-primary-500 text-white font-bold text-base uppercase font-sans tracking-wider">Join now</button>
                 </form>
             </div>
             <div class="absolute inset-0 z-0 flex items-end justify-end">
