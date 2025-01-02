@@ -491,6 +491,7 @@ export const mockMarketSentimentCompanies: MarketSentimentCompany[] = [
         quotes: [
             { id: 101, title: '"FLCL is so undervalued it’s unreal."', author: '@mark235263', time: 'X (Twitter)' },
             { id: 102, title: '“The roadmap is solid, especially with the new administration”', author: '@telekenetic-Dolphin3571', time: 'Reddit' },
+            { id: 103, title: '“Great potential for long-term growth.”', author: '@investor123', time: 'X (Twitter)' },
         ],
     },
     {
@@ -501,6 +502,7 @@ export const mockMarketSentimentCompanies: MarketSentimentCompany[] = [
         quotes: [
             { id: 103, title: '“Leadership is completely incompetent”', author: '@AlexRoald34', time: 'X (Twitter)' },
             { id: 104, title: '“...a really good play right now”', author: '@sinkhole-blue5146', time: 'Reddit' },
+            { id: 105, title: '“CIDM needs a new strategy to survive.”', author: '@marketwatcher', time: 'Reddit' },
         ],
     },
     {
@@ -511,6 +513,7 @@ export const mockMarketSentimentCompanies: MarketSentimentCompany[] = [
         quotes: [
             { id: 103, title: '“Can’t hold AMTR any longer. There’s no future there...”', author: '@RudePaul12', time: 'X (Twitter)' },
             { id: 104, title: '“...board is full of cronies...”', author: '@DeadRedEye3', time: 'Reddit' },
+            { id: 105, title: '“AMTR needs a complete overhaul.”', author: '@financeguru', time: 'X (Twitter)' },
         ],
     },
 ];

@@ -125,6 +125,7 @@
                             :imageflex="'row'"
                             section="body"
                             :tags="false"
+                            :description="true"
                             :is-first="true"
                         />
                         <div class="grid grid-cols-2 section !== 'movingNow' py-4 divide-x">
@@ -134,6 +135,7 @@
                                 :article="article" 
                                 :image="false"
                                 :tags="false"
+                                
                                 size="default"
                                 :class="{
                                     'pl-4 md:pl-6': index === leftSideFirstSubsectionBottomArticles.length - 1,
@@ -151,6 +153,7 @@
                             :imageflex="'row'"
                             section="body"
                             :tags="false"
+                            :description="true"
                             :is-first="true"
                         />
                         <div class="grid grid-cols-2 section !== 'movingNow' py-4 divide-x">
@@ -160,6 +163,7 @@
                                 :article="article" 
                                 :image="false"
                                 :tags="false"
+                                
                                 :is-last="true"
                                 :class="{
                                     'pl-4 md:pl-6': index === leftSideSecondSubsectionBottomArticles.length - 1,
@@ -178,7 +182,7 @@
                             <articlePreview 
                                 :article="rightSideFirstColumnTopArticle" 
                                 :imageflex="'col'"
-                                :description="false"
+                                :description="true"
                                 :is-first="true"
                             />
                             <div class="flex flex-col divide-y divide-gray">
@@ -187,7 +191,7 @@
                                     :key="article.id" 
                                     :article="article" 
                                     :image="false"
-                                    :description="false"
+                                    
                                     class="py-2"
                                     :is-last="index === rightSideFirstColumnBottomArticles.length -1"
                                 />
@@ -200,7 +204,7 @@
                             <articlePreview 
                                 :article="rightSideSecondColumnTopArticle" 
                                 :imageflex="'col'"
-                                :description="false"
+                                :description="true"
                                 :is-first="true"
                             />
                             <div class="flex flex-col divide-y divide-gray">
@@ -209,7 +213,7 @@
                                     :key="article.id" 
                                     :article="article" 
                                     :image="false"
-                                    :description="false"
+                                    
                                     class="py-2"
                                     :is-last="index === rightSideFirstColumnBottomArticles.length -1"
                                 />
@@ -265,7 +269,6 @@
                                         :key="article.id" 
                                         :article="article" 
                                         :image="false"
-                                        :description="false"
                                         :is-first="index === 0"
                                         :is-last="index === additionalSectionFirstColumnSmallArticles.length -1"
                                         :tags="false"
@@ -286,7 +289,7 @@
                                 :is-first="index === 0"
                                 :is-last="index === additionalSectionFirstColumnSmallArticles.length -1"
                                 :image="false"
-                                :description="false"
+                                :description="index === 0"
                                 :tags="false"
                                 class="py-2"
                             />
@@ -307,7 +310,7 @@
                                 :key="article.id" 
                                 :article="article" 
                                 :imageflex="'row'"
-                                :description="false"
+                                :description="true"
                                 size="medium"
                                 :tags="false"
                                 :is-first="index === 0"
@@ -326,7 +329,7 @@
                                 :key="article.id" 
                                 :article="article" 
                                 :imageflex="'row'"
-                                :description="false"
+                                :description="true"
                                 size="medium"
                                 :tags="false"
                                 :is-first="index === 0"
@@ -389,9 +392,10 @@ export default {
             sentiment: number;
             quotes: {
                 id: number;
-                description: string;
+                title: string;
                 author: string;
                 time: string;
+                tags: { text: string; trend?: number }[];
             }[];
         }
         
@@ -434,8 +438,8 @@ export default {
             if (mockArticles.length > 30) additionalSectionFirstColumnSmallArticles.value = mockArticles.slice(30, 33);
             if (mockArticles.length > 32) additionalSectionSecondColumnArticles.value = mockArticles.slice(33, 36);
 
-            if (mockArticles.length > 36) newAdditionalSectionFirstColumnArticles.value = mockArticles.slice(36, 38);
-            if (mockArticles.length > 39) newAdditionalSectionSecondColumnArticles.value = mockArticles.slice(38, 40);
+            if (mockArticles.length > 36) newAdditionalSectionFirstColumnArticles.value = mockArticles.slice(36, 39);
+            if (mockArticles.length > 39) newAdditionalSectionSecondColumnArticles.value = mockArticles.slice(39, 42);
         };
 
         const distributeMovingNow = () => {
